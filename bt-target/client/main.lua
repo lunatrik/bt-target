@@ -31,20 +31,6 @@ if Config.ESX then
 		PlayerJob = job
 	end)
     end)
-elseif Config.QBCore then
-    Citizen.CreateThread(function()
-        while QBCore == nil do
-            TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-            Citizen.Wait(0)
-        end
-
-        PlayerJob = QBCore.Functions.GetPlayerData().job
-
-        RegisterNetEvent('QBCore:Client:OnJobUpdate')
-		AddEventHandler('QBCore:Client:OnJobUpdate', function(job)
-		    PlayerJob = job
-		end)
-    end)
 else
     PlayerJob = Config.NonEsxJob()
 end
