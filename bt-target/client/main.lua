@@ -174,7 +174,7 @@ function playerTargetEnable()
                             SendNUIMessage({response = "validTarget", data = NewOptions})
                         end
                         while success and targetActive do
-                            local plyCoords = GetEntityCoords(GetPlayerPed(-1))
+                            local plyCoords = GetEntityCoords(PlayerPedId())
                             local hit, coords, entity = RayCastGamePlayCamera(20.0)
 
                             DisablePlayerFiring(PlayerPedId(), true)
