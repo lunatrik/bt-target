@@ -1,6 +1,7 @@
 Config = {}
 
 Config.ESX = false
+Config.QBCore = true
 
 Config.DropPlayer = false -- Drop player if they attempt to trigger an invalid event
 
