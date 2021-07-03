@@ -5,6 +5,8 @@ local Bones = {}
 -- Whitelist events
 local Events = {}
 
+local isMouse = false
+
 Citizen.CreateThread(function()
     RegisterKeyMapping("+playerTarget", "Player Targeting", "keyboard", "LMENU") --Removed Bind System and added standalone version
     RegisterCommand('+playerTarget', playerTargetEnable, false)
@@ -92,15 +94,24 @@ function playerTargetEnable()
                                     if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
                                         SetNuiFocus(true, true)
                                         SetCursorLocation(0.5, 0.5)
+					isMouse = true
+				    elseif IsControlJustReleased(0, 47) and not isMouse then
+					targetActive = false
+					success = false
+					isMouse = false
+					SetNuiFocus(false, false)
+					SendNUIMessage({response = "closeTarget"})
                                     end
 
                                     if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
                                         success = false
+					isMouse = false
                                     end
 
                                     Citizen.Wait(1)
                                 end
                                 SendNUIMessage({response = "leftTarget"})
+				isMouse = false
                             end
                         end
                     end 
@@ -140,17 +151,26 @@ function playerTargetEnable()
                                 if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
                                     SetNuiFocus(true, true)
                                     SetCursorLocation(0.5, 0.5)
+				    isMouse = true
+				elseif IsControlJustReleased(0, 47) and not isMouse then
+				    targetActive = false
+				    success = false
+				    isMouse = false
+				    SetNuiFocus(false, false)
+				    SendNUIMessage({response = "closeTarget"})
                                 end
 
                                 if #(plyCoords - coords) > Bones[_]["distance"] then
                                     success = false
                                     targetActive = false
+				    isMouse = false
                                     SendNUIMessage({response = "leftTarget"})
                                 end
 
                                 Citizen.Wait(1)
                             end
                             SendNUIMessage({response = "leftTarget"})
+			    isMouse = false
                         end
                     end
                 end
@@ -182,17 +202,25 @@ function playerTargetEnable()
                             if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
                                 SetNuiFocus(true, true)
                                 SetCursorLocation(0.5, 0.5)
-                            elseif not Zones[_]:isPointInside(coords) or #(vector3(Zones[_].center.x, Zones[_].center.y, Zones[_].center.z) - plyCoords) > zone.targetoptions.distance then
+				isMouse = true
+                            elseif IsControlJustReleased(0, 47) and not isMouse then
+				targetActive = false
+				success = false
+				isMouse = false
+				SetNuiFocus(false, false)
+				SendNUIMessage({response = "closeTarget"})
                             end
 
                             if not Zones[_]:isPointInside(coords) or #(plyCoords - Zones[_].center) > zone.targetoptions.distance then
                                 success = false
+				isMouse = false
                             end
 
 
                             Citizen.Wait(1)
                         end
                         SendNUIMessage({response = "leftTarget"})
+			isMouse = false
                     end
                 end
             end
