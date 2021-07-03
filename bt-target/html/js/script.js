@@ -33,6 +33,15 @@ window.addEventListener('message', function(event) {
     }
 });
 
+window.addEventListener("keyup", function onEvent(event) {
+    if (event.key == 'alt' || event.key == 'Alt' || event.key == 'escape' || event.key == 'Escape') {
+        $(".target-label").html("");
+
+        $('.target-wrapper').hide();
+        $.post(`https://${GetParentResourceName()}/closeTarget`)
+    }
+});
+
 $(document).on('mousedown', (event) => {
     let element = event.target;
 
@@ -45,15 +54,5 @@ $(document).on('mousedown', (event) => {
 
         $(".target-label").html("");
         $('.target-wrapper').hide();
-    }
-});
-
-$(document).on('keydown', function() {
-    switch(event.keyCode) {
-        case 27: // ESC
-            $(".target-label").html("");
-            $('.target-wrapper').hide();
-            $.post(`https://${GetParentResourceName()}/closeTarget`);
-            break;
     }
 });
