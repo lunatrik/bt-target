@@ -87,7 +87,7 @@ function playerTargetEnable()
                                     local plyCoords = GetEntityCoords(PlayerPedId())
                                     local hit, coords, entity = RayCastGamePlayCamera(20.0)
 
-                                    DisablePlayerFiring(PlayerPedId(), true)
+                                    DisablePlayerFiring(PlayerId(), true)
 
                                     if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
                                         SetNuiFocus(true, true)
