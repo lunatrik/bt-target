@@ -1,7 +1,7 @@
 # 👁️‍🗨️bt-target
 
 ## Info
-Since the original is no longer maintained and pull requests are not looked at this will be a maintained fork, feel free to contribute to this one as pull requests and issues will be actively checked.
+Since the original is no longer maintained and pull requests are not looked at this will be a maintained fork, feel free to contribute to this one as pull requests and issues will be actively checked. This is a fork of Mojito's version on this to fit my preferences.
 
 ## Credits
 - [brentN5](https://github.com/brentN5) - Original Author
