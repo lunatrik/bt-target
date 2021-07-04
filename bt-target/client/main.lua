@@ -82,7 +82,7 @@ function playerTargetEnable()
 
                                 if NewOptions[1] ~= nil then
                                     success = true
-                                    SendNUIMessage({response = "validTarget", data = NewOptions})
+                                    SendNUIMessage({response = "foundTarget"})
                                 end
 
                                 while success and targetActive do
@@ -91,10 +91,11 @@ function playerTargetEnable()
 
                                     DisablePlayerFiring(PlayerId(), true)
 
-                                    if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
+                                    if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
                                         SetNuiFocus(true, true)
                                         SetCursorLocation(0.5, 0.5)
 					isMouse = true
+					SendNUIMessage({response = "validTarget", data = NewOptions})
 				    elseif IsControlJustReleased(0, 19) and not isMouse then
 					targetActive = false
 					success = false
@@ -138,7 +139,7 @@ function playerTargetEnable()
 
                             if NewOptions[1] ~= nil then
                                 success = true
-                                SendNUIMessage({response = "validTarget", data = NewOptions})
+				SendNUIMessage({response = "foundTarget"})
                             end
 
                             while success and targetActive do
@@ -148,10 +149,11 @@ function playerTargetEnable()
 
                                 DisablePlayerFiring(PlayerId(), true)
 
-                                if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
+                                if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
                                     SetNuiFocus(true, true)
                                     SetCursorLocation(0.5, 0.5)
 				    isMouse = true
+				    SendNUIMessage({response = "validTarget", data = NewOptions})
 				elseif IsControlJustReleased(0, 19) and not isMouse then
 				    targetActive = false
 				    success = false
@@ -191,7 +193,7 @@ function playerTargetEnable()
 
                         if NewOptions[1] ~= nil then
                             success = true
-                            SendNUIMessage({response = "validTarget", data = NewOptions})
+                            SendNUIMessage({response = "foundTarget"})
                         end
                         while success and targetActive do
                             local plyCoords = GetEntityCoords(PlayerPedId())
@@ -199,10 +201,11 @@ function playerTargetEnable()
 
                             DisablePlayerFiring(PlayerId(), true)
 
-                            if (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
+                            if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
                                 SetNuiFocus(true, true)
                                 SetCursorLocation(0.5, 0.5)
 				isMouse = true
+				SendNUIMessage({response = "validTarget", data = NewOptions})
                             elseif IsControlJustReleased(0, 19) and not isMouse then
 				targetActive = false
 				success = false
