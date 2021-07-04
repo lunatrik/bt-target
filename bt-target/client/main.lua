@@ -254,6 +254,8 @@ RegisterNUICallback('selectTarget', function(data, cb)
 
     success = false
 
+    isMouse = false
+		
     targetActive = false
 
     TriggerEvent(data.event)
@@ -263,6 +265,8 @@ RegisterNUICallback('closeTarget', function(data, cb)
     SetNuiFocus(false, false)
 
     success = false
+		
+    isMouse = false
 
     targetActive = false
 end)
