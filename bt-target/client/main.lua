@@ -63,6 +63,7 @@ function playerTargetEnable()
 	local nearestVehicle = GetNearestVehicle()
         local plyCoords = GetEntityCoords(PlayerPedId())
         local hit, coords, entity = RayCastGamePlayCamera(20.0)
+	local hit2, coords2, entity2 = RayCastGamePlayCamera2(20.0)
 
         if hit == 1 then
             if GetEntityType(entity) ~= 0 then
@@ -227,6 +228,171 @@ function playerTargetEnable()
                     end
                 end
             end
+	end
+			
+        if hit2 == 1 then
+            if GetEntityType(entity2) ~= 0 then
+                for _, model in pairs(Models) do
+                    if _ == GetEntityModel(entity2) then
+                       if _ == GetEntityModel(entity2) then
+                            if #(plyCoords - coords2) <= Models[_]["distance"] then
+                                NewOptions = {}
+
+                                for _, option in pairs(Models[_]["options"]) do
+                                    for _, job in pairs(option.job) do
+                                        if job == "all" or job == PlayerJob.name then
+                                            table.insert(NewOptions, option)
+                                        end
+                                    end
+                                end
+
+                                if NewOptions[1] ~= nil then
+                                    success = true
+                                    SendNUIMessage({response = "foundTarget"})
+                                end
+
+                                while success and targetActive do
+                                    local plyCoords = GetEntityCoords(PlayerPedId())
+                                    local hit, coords, entity = RayCastGamePlayCamera2(20.0)
+
+                                    DisablePlayerFiring(PlayerId(), true)
+
+                                    if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
+                                        SetNuiFocus(true, true)
+                                        SetCursorLocation(0.5, 0.5)
+                                        mouse = true
+                                        SendNUIMessage({response = "validTarget", data = NewOptions})
+                                    elseif IsControlJustReleased(0, 47) and not mouse then
+                                        targetActive = false
+                                        success = false
+                                        mouse = false
+                                        SetNuiFocus(false, false)
+                                        SendNUIMessage({response = "closeTarget"})
+                                    end
+
+                                    if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
+                                        success = false
+                                        mouse = false
+                                    end
+
+                                    Citizen.Wait(1)
+                                end
+                                SendNUIMessage({response = "leftTarget"})
+                                mouse = false
+                            end
+                        end
+                    end 
+                end
+            end
+			
+            if nearestVehicle then
+                for _, bone in pairs(Bones) do
+                    local boneIndex = GetEntityBoneIndexByName(nearestVehicle, _)
+                    local bonePos = GetWorldPositionOfEntityBone(nearestVehicle, boneIndex)
+                    local distanceToBone = GetDistanceBetweenCoords(bonePos, plyCoords, 1)
+
+                    if #(bonePos - coords2) <= Bones[_]["distance"] then
+                        if #(plyCoords - coords2) <= Bones[_]["distance"] then
+                            NewOptions = {}
+
+                            for _, option in pairs(Bones[_]["options"]) do
+                                for _, job in pairs(option.job) do
+                                    if job == "all" or job == PlayerJob.name then
+                                        table.insert(NewOptions, option)
+                                    end
+                                end
+                            end
+
+                            if NewOptions[1] ~= nil then
+                                success = true
+                                SendNUIMessage({response = "foundTarget"})
+                            end
+
+                            while success and targetActive do
+                                local plyCoords = GetEntityCoords(PlayerPedId())
+                                local hit, coords, entity = RayCastGamePlayCamera2(7.0)
+                                local boneI = GetEntityBoneIndexByName(nearestVehicle, _)
+
+                                DisablePlayerFiring(PlayerId(), true)
+
+                                if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
+                                    SetNuiFocus(true, true)
+                                    SetCursorLocation(0.5, 0.5)
+                                    mouse = true
+                                    SendNUIMessage({response = "validTarget", data = NewOptions})
+                                elseif IsControlJustReleased(0, 47) and not mouse then
+                                    targetActive = false
+                                    success = false
+                                    mouse = false
+                                    SetNuiFocus(false, false)
+                                    SendNUIMessage({response = "closeTarget"})
+                                end
+
+                                if #(plyCoords - coords) > Bones[_]["distance"] then
+                                    success = false
+                                    targetActive = false
+                                    mouse = false
+                                    SendNUIMessage({response = "leftTarget"})
+                                end
+
+                                Citizen.Wait(1)
+                            end
+                            SendNUIMessage({response = "leftTarget"})
+                            mouse = false
+                        end
+                    end
+                end
+            end
+
+            for _, zone in pairs(Zones) do
+                if Zones[_]:isPointInside(coords2) then
+                    if #(plyCoords - Zones[_].center) <= zone["targetoptions"]["distance"] then
+                        NewOptions = {}
+    
+                        for _, option in pairs(Zones[_]["targetoptions"]["options"]) do
+                            for _, job in pairs(option.job) do
+                                if job == "all" or job == PlayerJob.name then
+                                    table.insert(NewOptions, option)
+                                end
+                            end
+                        end
+    
+                        if NewOptions[1] ~= nil then
+                            success = true
+                            SendNUIMessage({response = "foundTarget"})
+                        end
+                        while success and targetActive do
+                            local plyCoords = GetEntityCoords(PlayerPedId())
+                            local hit, coords, entity = RayCastGamePlayCamera2(20.0)
+    
+                            DisablePlayerFiring(PlayerId(), true)
+    
+                            if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
+                                SetNuiFocus(true, true)
+                                SetCursorLocation(0.5, 0.5)
+                                mouse = true
+                                SendNUIMessage({response = "validTarget", data = NewOptions})
+                            elseif IsControlJustReleased(0, 47) and not mouse then
+                                targetActive = false
+                                success = false
+                                mouse = false
+                                SetNuiFocus(false, false)
+                                SendNUIMessage({response = "closeTarget"})
+                            end
+    
+                            if not Zones[_]:isPointInside(coords) or #(plyCoords - Zones[_].center) > zone.targetoptions.distance then
+                                success = false
+                                mouse = false
+                            end
+    
+    
+                            Citizen.Wait(1)
+                        end
+                        SendNUIMessage({response = "leftTarget"})
+                        mouse = false
+                    end
+                end
+            end
         end
         Citizen.Wait(250)
     end
@@ -299,7 +465,21 @@ function RayCastGamePlayCamera(distance)
         y = cameraCoord.y + direction.y * distance,
         z = cameraCoord.z + direction.z * distance
     }
-    local a, b, c, d, e = GetShapeTestResult(StartShapeTestRay(cameraCoord.x, cameraCoord.y, cameraCoord.z, destination.x, destination.y, destination.z, 30, PlayerPedId(), 0))
+    local a, b, c, d, e = GetShapeTestResult(StartShapeTestRay(cameraCoord.x, cameraCoord.y, cameraCoord.z, destination.x, destination.y, destination.z, 30, PlayerPedId(), 4))
+    return b, c, e
+end
+
+function RayCastGamePlayCamera2(distance)
+    local cameraRotation = GetGameplayCamRot()
+    local cameraCoord = GetGameplayCamCoord()
+    local direction = RotationToDirection(cameraRotation)
+    local destination =
+    {
+        x = cameraCoord.x + direction.x * distance,
+        y = cameraCoord.y + direction.y * distance,
+        z = cameraCoord.z + direction.z * distance
+    }
+    local a, b, c, d, e = GetShapeTestResult(StartShapeTestRay(cameraCoord.x, cameraCoord.y, cameraCoord.z, destination.x, destination.y, destination.z, 30, PlayerPedId(), 4))
     return b, c, e
 end
 
