@@ -1,7 +1,7 @@
 # 👁️‍🗨️bt-target
 
 ## Info
-This fork is based on BerkieBb's preferences on changes for the target and some QOL fixes, feel free to make a Pull request, they will be check actively and make sure to always test them before making one! This is free to use and you change it however you want.
+This fork is based on BerkieBb's preferences on changes for the target and some QOL fixes, feel free to make a Pull request and make sure to always test them before making one! This is free to use and you change it however you want.
 
 ## Credits
 - [brentN5](https://github.com/brentN5) - Original Author
