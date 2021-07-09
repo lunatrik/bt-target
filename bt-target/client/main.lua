@@ -51,6 +51,52 @@ else
     PlayerJob = Config.NonEsxJob()
 end
 
+Citizen.CreateThread(function()
+    if next(Config.BoxZones) then
+        for k, v in pairs(Config.BoxZones) do
+            AddBoxZone(v.name, v.coords, v.length, v.width, {
+                name = v.name,
+                heading = v.heading,
+                debugPoly = v.debugPoly,
+                minZ = v.minZ,
+                maxZ = v.maxZ
+            }, {
+                options = v.options,
+                distance = v.distance
+            })
+        end
+    end
+
+    if next(Config.CircleZones) then
+        for k, v in pairs(Config.CircleZones) do
+            AddCircleZone(v.name, v.coords, v.radius, {
+                name = v.name,
+                debugPoly = v.debugPoly,
+            }, {
+                options = v.options,
+                distance = v.distance
+            })
+        end
+    end
+
+    if next(Config.TargetModels) then
+        for k, v in pairs(Config.TargetModels) do
+            AddTargetModel(v.objects, {
+                options = v.options,
+                distance = v.distance
+            })
+        end
+    end
+
+    if next(Config.TargetBones) then
+        for k, v in pairs(Config.TargetBones) do
+            AddTargetBone(v.bones, {
+                options = v.options,
+                distance = v.distance
+            })
+        end
+    end
+end)
 
 function playerTargetEnable()
     if success then return end
