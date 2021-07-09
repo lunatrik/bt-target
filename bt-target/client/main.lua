@@ -99,14 +99,16 @@ function playerTargetEnable()
                                         isMouse = true
                                         SendNUIMessage({response = "validTarget", data = NewOptions})
                                     elseif IsControlJustReleased(0, 19) and not isMouse then
-                                        targetActive = false
+                                        SendNUIMessage({response = "closeTarget"})
+                                        SetNuiFocus(false, false)
                                         success = false
                                         isMouse = false
-                                        SetNuiFocus(false, false)
-                                        SendNUIMessage({response = "closeTarget"})
+                                        targetActive = false
                                     end
 
                                     if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
+                                        SendNUIMessage({response = "leftTarget"})
+                                        SetNuiFocus(false, false)
                                         success = false
                                         isMouse = false
                                     end
@@ -114,6 +116,8 @@ function playerTargetEnable()
                                     Citizen.Wait(1)
                                 end
                                 SendNUIMessage({response = "leftTarget"})
+                                SetNuiFocus(false, false)
+                                success = false
                                 isMouse = false
                             end
                         end
@@ -157,23 +161,25 @@ function playerTargetEnable()
                                     isMouse = true
                                     SendNUIMessage({response = "validTarget", data = NewOptions})
                                 elseif IsControlJustReleased(0, 19) and not isMouse then
-                                    targetActive = false
+                                    SendNUIMessage({response = "closeTarget"})
+                                    SetNuiFocus(false, false)
                                     success = false
                                     isMouse = false
-                                    SetNuiFocus(false, false)
-                                    SendNUIMessage({response = "closeTarget"})
+                                    targetActive = false
                                 end
 
                                 if #(plyCoords - coords) > Bones[_]["distance"] then
-                                    success = false
-                                    targetActive = false
-                                    isMouse = false
                                     SendNUIMessage({response = "leftTarget"})
+                                    SetNuiFocus(false, false)
+                                    success = false
+                                    isMouse = false
                                 end
 
                                 Citizen.Wait(1)
                             end
                             SendNUIMessage({response = "leftTarget"})
+                            SetNuiFocus(false, false)
+                            success = false
                             isMouse = false
                         end
                     end
@@ -209,14 +215,16 @@ function playerTargetEnable()
                                 isMouse = true
                                 SendNUIMessage({response = "validTarget", data = NewOptions})
                             elseif IsControlJustReleased(0, 19) and not isMouse then
-                                targetActive = false
+                                SendNUIMessage({response = "closeTarget"})
+                                SetNuiFocus(false, false)
                                 success = false
                                 isMouse = false
-                                SetNuiFocus(false, false)
-                                SendNUIMessage({response = "closeTarget"})
+                                targetActive = false
                             end
     
                             if not Zones[_]:isPointInside(coords) or #(plyCoords - Zones[_].center) > zone.targetoptions.distance then
+                                SendNUIMessage({response = "leftTarget"})
+                                SetNuiFocus(false, false)
                                 success = false
                                 isMouse = false
                             end
@@ -225,6 +233,8 @@ function playerTargetEnable()
                             Citizen.Wait(1)
                         end
                         SendNUIMessage({response = "leftTarget"})
+                        SetNuiFocus(false, false)
+                        success = false
                         isMouse = false
                     end
                 end
@@ -264,14 +274,16 @@ function playerTargetEnable()
                                         isMouse = true
                                         SendNUIMessage({response = "validTarget", data = NewOptions})
                                     elseif IsControlJustReleased(0, 19) and not isMouse then
-                                        targetActive = false
+                                        SendNUIMessage({response = "closeTarget"})
+                                        SetNuiFocus(false, false)
                                         success = false
                                         isMouse = false
-                                        SetNuiFocus(false, false)
-                                        SendNUIMessage({response = "closeTarget"})
+                                        targetActive = false
                                     end
 
                                     if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
+                                        SendNUIMessage({response = "leftTarget"})
+                                        SetNuiFocus(false, false)
                                         success = false
                                         isMouse = false
                                     end
@@ -279,6 +291,8 @@ function playerTargetEnable()
                                     Citizen.Wait(1)
                                 end
                                 SendNUIMessage({response = "leftTarget"})
+                                SetNuiFocus(false, false)
+                                success = false
                                 isMouse = false
                             end
                         end
@@ -322,23 +336,25 @@ function playerTargetEnable()
                                     isMouse = true
                                     SendNUIMessage({response = "validTarget", data = NewOptions})
                                 elseif IsControlJustReleased(0, 19) and not isMouse then
-                                    targetActive = false
+                                    SendNUIMessage({response = "closeTarget"})
+                                    SetNuiFocus(false, false)
                                     success = false
                                     isMouse = false
-                                    SetNuiFocus(false, false)
-                                    SendNUIMessage({response = "closeTarget"})
+                                    targetActive = false
                                 end
 
                                 if #(plyCoords - coords) > Bones[_]["distance"] then
-                                    success = false
-                                    targetActive = false
-                                    isMouse = false
                                     SendNUIMessage({response = "leftTarget"})
+                                    SetNuiFocus(false, false)
+                                    success = false
+                                    isMouse = false
                                 end
 
                                 Citizen.Wait(1)
                             end
                             SendNUIMessage({response = "leftTarget"})
+                            SetNuiFocus(false, false)
+                            success = false
                             isMouse = false
                         end
                     end
@@ -374,14 +390,16 @@ function playerTargetEnable()
                                 isMouse = true
                                 SendNUIMessage({response = "validTarget", data = NewOptions})
                             elseif IsControlJustReleased(0, 19) and not isMouse then
-                                targetActive = false
+                                SendNUIMessage({response = "closeTarget"})
+                                SetNuiFocus(false, false)
                                 success = false
                                 isMouse = false
-                                SetNuiFocus(false, false)
-                                SendNUIMessage({response = "closeTarget"})
+                                targetActive = false
                             end
     
                             if not Zones[_]:isPointInside(coords) or #(plyCoords - Zones[_].center) > zone.targetoptions.distance then
+                                SendNUIMessage({response = "leftTarget"})
+                                SetNuiFocus(false, false)
                                 success = false
                                 isMouse = false
                             end
@@ -390,6 +408,8 @@ function playerTargetEnable()
                             Citizen.Wait(1)
                         end
                         SendNUIMessage({response = "leftTarget"})
+                        SetNuiFocus(false, false)
+                        success = false
                         isMouse = false
                     end
                 end
@@ -402,9 +422,11 @@ end
 function playerTargetDisable()
     if success then return end
 
-    targetActive = false
-
     SendNUIMessage({response = "closeTarget"})
+    SetNuiFocus(false, false)
+    success = false
+    isMouse = false
+    targetActive = false
 end
 
 --NUI CALL BACKS
@@ -429,16 +451,14 @@ end)
 
 RegisterNUICallback('closeTarget', function(data, cb)
     SetNuiFocus(false, false)
-
     success = false
     isMouse = false
-
     targetActive = false
 end)
 
 RegisterNUICallback('leftTarget', function(data, cb)
     SetNuiFocus(false, false)
-
+    success = false
     isMouse = false
 end)
 
