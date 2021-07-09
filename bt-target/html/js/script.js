@@ -30,6 +30,7 @@ function LeftTarget() {
     $(".target-label").html("");
 
     $(".target-eye").css("color", "white");
+    $.post(`https://${GetParentResourceName()}/leftTarget`)
 }
 
 function CloseTarget() {
@@ -73,7 +74,6 @@ $(document).on('mousedown', (event) => {
 });
 
 window.addEventListener("keyup", function onEvent(event) {
-    console.log(event.key);
     if (event.key == 'alt' || event.key == 'Alt' || event.key == 'escape' || event.key == 'Escape') {
         CloseTarget()
         $.post(`https://${GetParentResourceName()}/closeTarget`)
