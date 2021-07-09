@@ -30,7 +30,6 @@ function LeftTarget() {
     $(".target-label").html("");
 
     $(".target-eye").css("color", "white");
-    $.post(`https://${GetParentResourceName()}/leftTarget`)
 }
 
 function CloseTarget() {
