@@ -98,7 +98,7 @@ function playerTargetEnable()
                                         SetCursorLocation(0.5, 0.5)
                                         isMouse = true
                                         SendNUIMessage({response = "validTarget", data = NewOptions})
-                                    elseif IsControlJustReleased(0, 47) and not isMouse then
+                                    elseif IsControlJustReleased(0, 19) and not isMouse then
                                         targetActive = false
                                         success = false
                                         isMouse = false
@@ -156,7 +156,7 @@ function playerTargetEnable()
                                     SetCursorLocation(0.5, 0.5)
                                     isMouse = true
                                     SendNUIMessage({response = "validTarget", data = NewOptions})
-                                elseif IsControlJustReleased(0, 47) and not isMouse then
+                                elseif IsControlJustReleased(0, 19) and not isMouse then
                                     targetActive = false
                                     success = false
                                     isMouse = false
@@ -208,7 +208,7 @@ function playerTargetEnable()
                                 SetCursorLocation(0.5, 0.5)
                                 isMouse = true
                                 SendNUIMessage({response = "validTarget", data = NewOptions})
-                            elseif IsControlJustReleased(0, 47) and not isMouse then
+                            elseif IsControlJustReleased(0, 19) and not isMouse then
                                 targetActive = false
                                 success = false
                                 isMouse = false
@@ -263,7 +263,7 @@ function playerTargetEnable()
                                         SetCursorLocation(0.5, 0.5)
                                         isMouse = true
                                         SendNUIMessage({response = "validTarget", data = NewOptions})
-                                    elseif IsControlJustReleased(0, 47) and not isMouse then
+                                    elseif IsControlJustReleased(0, 19) and not isMouse then
                                         targetActive = false
                                         success = false
                                         isMouse = false
@@ -321,7 +321,7 @@ function playerTargetEnable()
                                     SetCursorLocation(0.5, 0.5)
                                     isMouse = true
                                     SendNUIMessage({response = "validTarget", data = NewOptions})
-                                elseif IsControlJustReleased(0, 47) and not isMouse then
+                                elseif IsControlJustReleased(0, 19) and not isMouse then
                                     targetActive = false
                                     success = false
                                     isMouse = false
@@ -373,7 +373,7 @@ function playerTargetEnable()
                                 SetCursorLocation(0.5, 0.5)
                                 isMouse = true
                                 SendNUIMessage({response = "validTarget", data = NewOptions})
-                            elseif IsControlJustReleased(0, 47) and not isMouse then
+                            elseif IsControlJustReleased(0, 19) and not isMouse then
                                 targetActive = false
                                 success = false
                                 isMouse = false
