@@ -21,10 +21,10 @@ body {
     align-content: center;
     justify-content: center;
     flex-direction: row;
-    width: 100%;
+    left: 51.5vw;
+    width: fit-content;
     height: 100%;
     top: 49.25%;
-    left: 3.8%;
 }
 
 .target-label {
