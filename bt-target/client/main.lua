@@ -22,30 +22,30 @@ if Config.ESX then
             Citizen.Wait(0)
         end
 
-	    while ESX.GetPlayerData().job == nil do
-	        Citizen.Wait(10)
+	while ESX.GetPlayerData().job == nil do
+	    Citizen.Wait(10)
         end
 			
         PlayerJob = ESX.GetPlayerData().job
 
         RegisterNetEvent('esx:setJob')
-	    AddEventHandler('esx:setJob', function(job)
-		    PlayerJob = job
-	    end)
+	AddEventHandler('esx:setJob', function(job)
+	    PlayerJob = job
+	end)
     end)
 elseif Config.QBCore then
     Citizen.CreateThread(function()
-	    while QBCore == nil do
-	        TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-	        Citizen.Wait(200)
-	    end
+	while QBCore == nil do
+	    TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+	    Citizen.Wait(200)
+	end
 			
-	    PlayerJob = QBCore.Functions.GetPlayerData().job
+	PlayerJob = QBCore.Functions.GetPlayerData().job
 	
-	    RegisterNetEvent('QBCore:Client:OnJobUpdate')
-	    AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
-	        PlayerJob = JobInfo
-	    end)
+	RegisterNetEvent('QBCore:Client:OnJobUpdate')
+	AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
+	    PlayerJob = JobInfo
+	end)
     end)
 else
     PlayerJob = Config.NonEsxJob()
@@ -59,9 +59,11 @@ function playerTargetEnable()
     targetActive = true
 
     SendNUIMessage({response = "openTarget"})
+	
+    DisableControls()
     
     while targetActive do
-	    local nearestVehicle = GetNearestVehicle()
+	local nearestVehicle = GetNearestVehicle()
         local plyCoords = GetEntityCoords(PlayerPedId())
         local hit, coords, entity = RayCastGamePlayCamera(20.0)
         local hit2, coords2, entity2 = RayCastGamePlayCamera2(20.0)
@@ -584,6 +586,27 @@ function RemoveZone(name)
     Zones[name] = nil
 end
 
+function DisableControls()
+    Citizen.CreateThread(function()
+	while targetActive do
+	    Citizen.Wait(0)			
+	
+	    DisableControlAction(0, 24)
+	    DisableControlAction(1, 24)
+	    DisableControlAction(2, 24)
+	    DisableControlAction(0, 25)
+	    DisableControlAction(1, 25)
+	    DisableControlAction(2, 25)
+	end
+			
+	EnableControlAction(0, 24)
+	EnableControlAction(1, 24)
+	EnableControlAction(2, 24)
+	EnableControlAction(0, 25)
+	EnableControlAction(1, 25)
+	EnableControlAction(2, 25)
+    end)
+end
 
 exports("AddCircleZone", AddCircleZone)
 
