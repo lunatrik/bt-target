@@ -34,7 +34,7 @@ Config.BoxZones = {
             },
         },
         distance = 1.5
-    }
+    },
 }
 
 Config.CircleZones = {
@@ -52,7 +52,7 @@ Config.CircleZones = {
             },
         },
         distance = 1.5
-    }
+    },
 }
 
 Config.TargetModels = {
@@ -72,7 +72,7 @@ Config.TargetModels = {
             },
         },
         distance = 2.5
-    }
+    },
 }
 
 Config.TargetBones = {
@@ -98,5 +98,5 @@ Config.TargetBones = {
             },
         },
         distance = 1.5
-    }
+    },
 }
