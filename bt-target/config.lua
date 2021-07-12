@@ -29,6 +29,7 @@ Config.BoxZones = {
             {
                 type = "client",
                 event = "toggleduty",
+                parameters = {},
                 icon = "fas fa-clipboard",
                 label = "Toggle Duty",
                 job = {"police"},
@@ -48,6 +49,7 @@ Config.CircleZones = {
             {
                 type = "client",
                 event = "toggleduty",
+                parameters = {},
                 icon = "far fa-clipboard",
                 label = "Sign On",
                 job = {"police"},
@@ -69,6 +71,7 @@ Config.TargetModels = {
             {
                 type = "client",
                 event = "dumpster:search",
+                parameters = {},
                 icon = "fas fa-credit-card",
                 label = "Use atm",
                 job = {"all"}
@@ -90,6 +93,7 @@ Config.TargetBones = {
             {
                 type = "client",
                 event = "door",
+                parameters = {},
                 icon = "fas fa-door-open",
                 label = "Toggle Door",
                 job = {"all"},
@@ -97,6 +101,7 @@ Config.TargetBones = {
             {
                 type = "client",
                 event = "unlock",
+                parameters = {},
                 icon = "fas fa-door-open",
                 label = "Unlock Door",
                 job = {"all"},
