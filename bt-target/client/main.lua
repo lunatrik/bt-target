@@ -499,12 +499,15 @@ RegisterNUICallback('selectTarget', function(data, cb)
     isMouse = false
 
     targetActive = false
-    if data.type == "client" then
-	TriggerEvent(data.event, data.parameters)
-    elseif data.type == "server" then
-	TriggerServerEvent(data.event, data.parameters)
-    elseif data.type == "function" then
-	_G[data.event](data.parameters)
+		
+    if data.type ~= nil then
+    	if data.type == "client" then
+	    TriggerEvent(data.event, data.parameters)
+    	elseif data.type == "server" then
+	    TriggerServerEvent(data.event, data.parameters)
+    	elseif data.type == "function" then
+	    _G[data.event](data.parameters)
+    	end
     else
 	TriggerEvent(data.event, data.parameters)
     end
