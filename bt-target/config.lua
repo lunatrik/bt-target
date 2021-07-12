@@ -27,6 +27,7 @@ Config.BoxZones = {
         maxZ = 31.04,
         options = {
             {
+                type = "client",
                 event = "toggleduty",
                 icon = "fas fa-clipboard",
                 label = "Toggle Duty",
@@ -45,6 +46,7 @@ Config.CircleZones = {
         debugPoly = false,
         options = {
             {
+                type = "client",
                 event = "toggleduty",
                 icon = "far fa-clipboard",
                 label = "Sign On",
@@ -65,6 +67,7 @@ Config.TargetModels = {
         },
         options = {
             {
+                type = "client",
                 event = "dumpster:search",
                 icon = "fas fa-credit-card",
                 label = "Use atm",
@@ -85,12 +88,14 @@ Config.TargetBones = {
         },
         options = {
             {
+                type = "client",
                 event = "door",
                 icon = "fas fa-door-open",
                 label = "Toggle Door",
                 job = {"all"},
             },
             {
+                type = "client",
                 event = "unlock",
                 icon = "fas fa-door-open",
                 label = "Unlock Door",
