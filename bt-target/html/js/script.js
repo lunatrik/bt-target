@@ -48,7 +48,7 @@ function ValidTarget(item) {
 
         $("#target-" + index + "").css("margin-bottom", "1vh");
 
-        $("#target-" + index).data('TargetData', item.event);
+        $("#target-" + index).data('TargetData', item);
     });
 }
 
@@ -58,9 +58,7 @@ $(document).on('mousedown', (event) => {
     if (element.id.split("-")[0] === 'target') {
         let TargetData = $("#" + element.id).data('TargetData');
 
-        $.post(`https://${GetParentResourceName()}/selectTarget`, JSON.stringify({
-            event: TargetData,
-        }));
+        $.post(`https://${GetParentResourceName()}/selectTarget`, JSON.stringify(TargetData));
 
         $(".target-label").html("");
         $('.target-wrapper').hide();
