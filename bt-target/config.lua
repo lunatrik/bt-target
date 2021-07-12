@@ -9,7 +9,7 @@ Config.DropPlayer = false -- Drop player if they attempt to trigger an invalid e
 --     name = job name
 -- }
 
-Config.NonEsxJob = function()
+Config.NonFrameworkJob = function()
     local PlayerJob = {}
 
     return PlayerJob
