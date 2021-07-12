@@ -21,13 +21,14 @@ if Config.ESX then
             TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
             Citizen.Wait(0)
         end
-
-	while ESX.GetPlayerData().job == nil do
-	    Citizen.Wait(10)
-        end
 			
         PlayerJob = ESX.GetPlayerData().job
 
+	RegisterNetEvent('esx:playerLoaded')
+	AddEventHandler('esx:playerLoaded', function()
+	    PlayerJob = ESX.GetPlayerData().job
+	end)
+			
         RegisterNetEvent('esx:setJob')
 	AddEventHandler('esx:setJob', function(job)
 	    PlayerJob = job
@@ -42,13 +43,18 @@ elseif Config.QBCore then
 			
 	PlayerJob = QBCore.Functions.GetPlayerData().job
 	
+	RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
+	AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+	    PlayerJob = QBCore.Functions.GetPlayerData().job
+	end)			
+
 	RegisterNetEvent('QBCore:Client:OnJobUpdate')
 	AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
 	    PlayerJob = JobInfo
 	end)
     end)
 else
-    PlayerJob = Config.NonEsxJob()
+    PlayerJob = Config.NonFrameworkJob()
 end
 
 Citizen.CreateThread(function()
