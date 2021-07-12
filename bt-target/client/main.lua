@@ -503,6 +503,8 @@ RegisterNUICallback('selectTarget', function(data, cb)
 	TriggerEvent(data.event, data.parameters)
     elseif data.type == "server" then
 	TriggerServerEvent(data.event, data.parameters)
+    elseif data.type == "function" then
+	_G[data.event](data.parameters)
     else
 	TriggerEvent(data.event, data.parameters)
     end
