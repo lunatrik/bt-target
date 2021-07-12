@@ -499,8 +499,13 @@ RegisterNUICallback('selectTarget', function(data, cb)
     isMouse = false
 
     targetActive = false
-
-    TriggerEvent(data.event)
+    if data.type == "client" then
+        TriggerEvent(data.event)
+    elseif data.type == "server" then
+	TriggerServerEvent(data.event)
+    else
+	TriggerEvent(data.event)
+    end
 end)
 
 RegisterNUICallback('closeTarget', function(data, cb)
