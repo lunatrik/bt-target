@@ -500,11 +500,11 @@ RegisterNUICallback('selectTarget', function(data, cb)
 
     targetActive = false
     if data.type == "client" then
-	TriggerEvent(data.event)
+	TriggerEvent(data.event, data.parameters)
     elseif data.type == "server" then
-	TriggerServerEvent(data.event)
+	TriggerServerEvent(data.event, data.parameters)
     else
-	TriggerEvent(data.event)
+	TriggerEvent(data.event, data.parameters)
     end
 end)
 
