@@ -24,34 +24,34 @@ if Config.ESX then
 			
         PlayerJob = ESX.GetPlayerData().job
 
-	RegisterNetEvent('esx:playerLoaded')
-	AddEventHandler('esx:playerLoaded', function()
-	    PlayerJob = ESX.GetPlayerData().job
-	end)
-			
+        RegisterNetEvent('esx:playerLoaded')
+        AddEventHandler('esx:playerLoaded', function()
+            PlayerJob = ESX.GetPlayerData().job
+        end)
+                
         RegisterNetEvent('esx:setJob')
-	AddEventHandler('esx:setJob', function(job)
-	    PlayerJob = job
-	end)
+        AddEventHandler('esx:setJob', function(job)
+            PlayerJob = job
+        end)
     end)
 elseif Config.QBCore then
     Citizen.CreateThread(function()
-	while QBCore == nil do
-	    TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-	    Citizen.Wait(200)
-	end
-			
-	PlayerJob = QBCore.Functions.GetPlayerData().job
-	
-	RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-	AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-	    PlayerJob = QBCore.Functions.GetPlayerData().job
-	end)			
+        while QBCore == nil do
+            TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+            Citizen.Wait(200)
+        end
+                
+        PlayerJob = QBCore.Functions.GetPlayerData().job
+        
+        RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
+        AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+            PlayerJob = QBCore.Functions.GetPlayerData().job
+        end)			
 
-	RegisterNetEvent('QBCore:Client:OnJobUpdate')
-	AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
-	    PlayerJob = JobInfo
-	end)
+        RegisterNetEvent('QBCore:Client:OnJobUpdate')
+        AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
+            PlayerJob = JobInfo
+        end)
     end)
 else
     PlayerJob = Config.NonFrameworkJob()
@@ -121,64 +121,6 @@ function playerTargetEnable()
         local hit2, coords2, entity2 = RayCastGamePlayCamera2(20.0)
 
         if hit == 1 then
-            if GetEntityType(entity) ~= 0 then
-                for _, model in pairs(Models) do
-                    if _ == GetEntityModel(entity) then
-                       if _ == GetEntityModel(entity) then
-                            if #(plyCoords - coords) <= Models[_]["distance"] then
-                                NewOptions = {}
-
-                                for _, option in pairs(Models[_]["options"]) do
-                                    for _, job in pairs(option.job) do
-                                        if job == "all" or job == PlayerJob.name then
-                                            table.insert(NewOptions, option)
-                                        end
-                                    end
-                                end
-
-                                if NewOptions[1] ~= nil then
-                                    success = true
-                                    SendNUIMessage({response = "foundTarget"})
-                                end
-
-                                while success and targetActive do
-                                    local plyCoords = GetEntityCoords(PlayerPedId())
-                                    local hit, coords, entity = RayCastGamePlayCamera(20.0)
-
-                                    DisablePlayerFiring(PlayerId(), true)
-
-                                    if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
-                                        SetNuiFocus(true, true)
-                                        SetCursorLocation(0.5, 0.5)
-                                        isMouse = true
-                                        SendNUIMessage({response = "validTarget", data = NewOptions})
-                                    elseif IsControlJustReleased(0, 19) and not isMouse then
-                                        SendNUIMessage({response = "closeTarget"})
-                                        SetNuiFocus(false, false)
-                                        success = false
-                                        isMouse = false
-                                        targetActive = false
-                                    end
-
-                                    if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
-                                        SendNUIMessage({response = "leftTarget"})
-                                        SetNuiFocus(false, false)
-                                        success = false
-                                        isMouse = false
-                                    end
-
-                                    Citizen.Wait(1)
-                                end
-                                SendNUIMessage({response = "leftTarget"})
-                                SetNuiFocus(false, false)
-                                success = false
-                                isMouse = false
-                            end
-                        end
-                    end 
-                end
-            end
-			
             if nearestVehicle then
                 for _, bone in pairs(Bones) do
                     local boneIndex = GetEntityBoneIndexByName(nearestVehicle, _)
@@ -190,9 +132,11 @@ function playerTargetEnable()
                             NewOptions = {}
 
                             for _, option in pairs(Bones[_]["options"]) do
-                                for _, job in pairs(option.job) do
-                                    if job == "all" or job == PlayerJob.name then
-                                        table.insert(NewOptions, option)
+                                if option.shouldShow == nil or option.shouldShow() then
+                                    for _, job in pairs(option.job) do
+                                        if job == "all" or job == PlayerJob.name then
+                                            table.insert(NewOptions, option)
+                                        end
                                     end
                                 end
                             end
@@ -246,9 +190,11 @@ function playerTargetEnable()
                         NewOptions = {}
     
                         for _, option in pairs(Zones[_]["targetoptions"]["options"]) do
-                            for _, job in pairs(option.job) do
-                                if job == "all" or job == PlayerJob.name then
-                                    table.insert(NewOptions, option)
+                            if option.shouldShow == nil or option.shouldShow() then
+                                for _, job in pairs(option.job) do
+                                    if job == "all" or job == PlayerJob.name then
+                                        table.insert(NewOptions, option)
+                                    end
                                 end
                             end
                         end
@@ -304,9 +250,11 @@ function playerTargetEnable()
                                 NewOptions = {}
 
                                 for _, option in pairs(Models[_]["options"]) do
-                                    for _, job in pairs(option.job) do
-                                        if job == "all" or job == PlayerJob.name then
-                                            table.insert(NewOptions, option)
+                                    if option.shouldShow == nil or option.shouldShow() then
+                                        for _, job in pairs(option.job) do
+                                            if job == "all" or job == PlayerJob.name then
+                                                table.insert(NewOptions, option)
+                                            end
                                         end
                                     end
                                 end
@@ -365,9 +313,11 @@ function playerTargetEnable()
                             NewOptions = {}
 
                             for _, option in pairs(Bones[_]["options"]) do
-                                for _, job in pairs(option.job) do
-                                    if job == "all" or job == PlayerJob.name then
-                                        table.insert(NewOptions, option)
+                                if option.shouldShow == nil or option.shouldShow() then
+                                    for _, job in pairs(option.job) do
+                                        if job == "all" or job == PlayerJob.name then
+                                            table.insert(NewOptions, option)
+                                        end
                                     end
                                 end
                             end
@@ -411,60 +361,6 @@ function playerTargetEnable()
                             success = false
                             isMouse = false
                         end
-                    end
-                end
-            end
-
-            for _, zone in pairs(Zones) do
-                if Zones[_]:isPointInside(coords2) then
-                    if #(plyCoords - Zones[_].center) <= zone["targetoptions"]["distance"] then
-                        NewOptions = {}
-    
-                        for _, option in pairs(Zones[_]["targetoptions"]["options"]) do
-                            for _, job in pairs(option.job) do
-                                if job == "all" or job == PlayerJob.name then
-                                    table.insert(NewOptions, option)
-                                end
-                            end
-                        end
-    
-                        if NewOptions[1] ~= nil then
-                            success = true
-                            SendNUIMessage({response = "foundTarget"})
-                        end
-                        while success and targetActive do
-                            local plyCoords = GetEntityCoords(PlayerPedId())
-                            local hit, coords, entity = RayCastGamePlayCamera2(20.0)
-    
-                            DisablePlayerFiring(PlayerId(), true)
-    
-                            if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
-                                SetNuiFocus(true, true)
-                                SetCursorLocation(0.5, 0.5)
-                                isMouse = true
-                                SendNUIMessage({response = "validTarget", data = NewOptions})
-                            elseif IsControlJustReleased(0, 19) and not isMouse then
-                                SendNUIMessage({response = "closeTarget"})
-                                SetNuiFocus(false, false)
-                                success = false
-                                isMouse = false
-                                targetActive = false
-                            end
-    
-                            if not Zones[_]:isPointInside(coords) or #(plyCoords - Zones[_].center) > zone.targetoptions.distance then
-                                SendNUIMessage({response = "leftTarget"})
-                                SetNuiFocus(false, false)
-                                success = false
-                                isMouse = false
-                            end
-    
-    
-                            Citizen.Wait(1)
-                        end
-                        SendNUIMessage({response = "leftTarget"})
-                        SetNuiFocus(false, false)
-                        success = false
-                        isMouse = false
                     end
                 end
             end
@@ -650,23 +546,33 @@ end
 
 function DisableControls()
     Citizen.CreateThread(function()
-	while targetActive do
-	    Citizen.Wait(0)			
-	
-	    DisableControlAction(0, 24)
-	    DisableControlAction(1, 24)
-	    DisableControlAction(2, 24)
-	    DisableControlAction(0, 25)
-	    DisableControlAction(1, 25)
-	    DisableControlAction(2, 25)
-	end
+        while targetActive do
+            Citizen.Wait(0)			
+            -- Credit to OfficiallyNoms for finding all the control actions to disable
+            DisableControlAction(0, 24, true) -- disable attack
+            DisableControlAction(0, 25, true) -- disable aim
+            DisableControlAction(0, 47, true) -- disable weapon
+            DisableControlAction(0, 58, true) -- disable weapon
+            DisableControlAction(0, 263, true) -- disable melee
+            DisableControlAction(0, 264, true) -- disable melee
+            DisableControlAction(0, 257, true) -- disable melee
+            DisableControlAction(0, 140, true) -- disable melee
+            DisableControlAction(0, 141, true) -- disable melee
+            DisableControlAction(0,142, true) -- disable melee
+            DisableControlAction(0, 143, true) -- disable melee
+        end
 			
-	EnableControlAction(0, 24)
-	EnableControlAction(1, 24)
-	EnableControlAction(2, 24)
-	EnableControlAction(0, 25)
-	EnableControlAction(1, 25)
-	EnableControlAction(2, 25)
+        EnableControlAction(0, 24, true) -- disable attack
+        EnableControlAction(0, 25, true) -- disable aim
+        EnableControlAction(0, 47, true) -- disable weapon
+        EnableControlAction(0, 58, true) -- disable weapon
+        EnableControlAction(0, 263, true) -- disable melee
+        EnableControlAction(0, 264, true) -- disable melee
+        EnableControlAction(0, 257, true) -- disable melee
+        EnableControlAction(0, 140, true) -- disable melee
+        EnableControlAction(0, 141, true) -- disable melee
+        EnableControlAction(0,142, true) -- disable melee
+        EnableControlAction(0, 143, true) -- disable melee
     end)
 end
 
