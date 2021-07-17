@@ -36,6 +36,12 @@ Config.BoxZones = {
                 icon = "fas fa-clipboard",
                 label = "Toggle Duty",
                 job = {["police"] = 0},
+                shouldShow = function()
+                    local exampleval = true
+                    if exampleval then
+                        return exampleval
+                    end
+                end
             },
         },
         distance = 1.5
