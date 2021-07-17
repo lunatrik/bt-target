@@ -3,6 +3,7 @@ Config = {}
 Config.ESX = false
 Config.QBCore = true
 Config.DropPlayer = false -- Drop player if they attempt to trigger an invalid event
+Config.UseGrades = false
 
 -- Return an object in the format
 -- {
@@ -34,7 +35,7 @@ Config.BoxZones = {
                 parameters = {},
                 icon = "fas fa-clipboard",
                 label = "Toggle Duty",
-                job = {"police"},
+                job = {["police"] = 0},
             },
         },
         distance = 1.5
