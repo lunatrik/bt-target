@@ -3,7 +3,7 @@ Config = {}
 Config.ESX = false
 Config.QBCore = true
 Config.DropPlayer = false -- Drop player if they attempt to trigger an invalid event
-Config.UseGrades = false
+Config.UseGrades = true -- Add grades to the job parameter
 
 -- Return an object in the format
 -- {
