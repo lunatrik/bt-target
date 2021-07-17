@@ -133,8 +133,8 @@ function playerTargetEnable()
 
                             for _, option in pairs(Bones[_]["options"]) do
                                 if option.shouldShow == nil or option.shouldShow() then
-                                    for _, job in pairs(option.job) do
-                                        if job == "all" or job == PlayerJob.name then
+                                    for job, grade in pairs(option.job) do
+                                        if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
                                             table.insert(NewOptions, option)
                                         end
                                     end
@@ -191,8 +191,8 @@ function playerTargetEnable()
     
                         for _, option in pairs(Zones[_]["targetoptions"]["options"]) do
                             if option.shouldShow == nil or option.shouldShow() then
-                                for _, job in pairs(option.job) do
-                                    if job == "all" or job == PlayerJob.name then
+                                for job, grade in pairs(option.job) do
+                                    if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
                                         table.insert(NewOptions, option)
                                     end
                                 end
@@ -251,8 +251,8 @@ function playerTargetEnable()
 
                                 for _, option in pairs(Models[_]["options"]) do
                                     if option.shouldShow == nil or option.shouldShow() then
-                                        for _, job in pairs(option.job) do
-                                            if job == "all" or job == PlayerJob.name then
+                                        for job, grade in pairs(option.job) do
+                                            if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
                                                 table.insert(NewOptions, option)
                                             end
                                         end
@@ -314,8 +314,8 @@ function playerTargetEnable()
 
                             for _, option in pairs(Bones[_]["options"]) do
                                 if option.shouldShow == nil or option.shouldShow() then
-                                    for _, job in pairs(option.job) do
-                                        if job == "all" or job == PlayerJob.name then
+                                    for job, grade in pairs(option.job) do
+                                        if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
                                             table.insert(NewOptions, option)
                                         end
                                     end
