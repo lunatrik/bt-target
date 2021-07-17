@@ -15,6 +15,8 @@ Config.NonFrameworkJob = function()
     return PlayerJob
 end
 
+-- The following tables in the configs are examples, the only thing you have to replace is the event for it to work
+
 Config.BoxZones = {
     ["PoliceDuty"] = {
         name = "PoliceDuty",
