@@ -548,7 +548,7 @@ function DisableControls()
     Citizen.CreateThread(function()
         while targetActive do
             Citizen.Wait(0)			
-            -- Credit to OfficiallyNoms for finding all the control actions to disable
+            -- Credit to OfficialNoms for finding all the control actions to disable
             DisableControlAction(0, 24, true) -- disable attack
             DisableControlAction(0, 25, true) -- disable aim
             DisableControlAction(0, 47, true) -- disable weapon
