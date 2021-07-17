@@ -245,58 +245,56 @@ function playerTargetEnable()
             if GetEntityType(entity2) ~= 0 then
                 for _, model in pairs(Models) do
                     if _ == GetEntityModel(entity2) then
-                       if _ == GetEntityModel(entity2) then
-                            if #(plyCoords - coords2) <= Models[_]["distance"] then
-                                NewOptions = {}
+                        if #(plyCoords - coords2) <= Models[_]["distance"] then
+                            NewOptions = {}
 
-                                for _, option in pairs(Models[_]["options"]) do
-                                    if option.shouldShow == nil or option.shouldShow() then
-                                        for job, grade in pairs(option.job) do
-                                            if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
-                                                table.insert(NewOptions, option)
-                                            end
+                            for _, option in pairs(Models[_]["options"]) do
+                                if option.shouldShow == nil or option.shouldShow() then
+                                    for job, grade in pairs(option.job) do
+                                        if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
+                                            table.insert(NewOptions, option)
                                         end
                                     end
                                 end
-
-                                if NewOptions[1] ~= nil then
-                                    success = true
-                                    SendNUIMessage({response = "foundTarget"})
-                                end
-
-                                while success and targetActive do
-                                    local plyCoords = GetEntityCoords(PlayerPedId())
-                                    local hit, coords, entity = RayCastGamePlayCamera2(20.0)
-
-                                    DisablePlayerFiring(PlayerId(), true)
-
-                                    if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
-                                        SetNuiFocus(true, true)
-                                        SetCursorLocation(0.5, 0.5)
-                                        isMouse = true
-                                        SendNUIMessage({response = "validTarget", data = NewOptions})
-                                    elseif IsControlJustReleased(0, 19) and not isMouse then
-                                        SendNUIMessage({response = "closeTarget"})
-                                        SetNuiFocus(false, false)
-                                        success = false
-                                        isMouse = false
-                                        targetActive = false
-                                    end
-
-                                    if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
-                                        SendNUIMessage({response = "leftTarget"})
-                                        SetNuiFocus(false, false)
-                                        success = false
-                                        isMouse = false
-                                    end
-
-                                    Citizen.Wait(1)
-                                end
-                                SendNUIMessage({response = "leftTarget"})
-                                SetNuiFocus(false, false)
-                                success = false
-                                isMouse = false
                             end
+
+                            if NewOptions[1] ~= nil then
+                                success = true
+                                SendNUIMessage({response = "foundTarget"})
+                            end
+
+                            while success and targetActive do
+                                local plyCoords = GetEntityCoords(PlayerPedId())
+                                local hit, coords, entity = RayCastGamePlayCamera2(20.0)
+
+                                DisablePlayerFiring(PlayerId(), true)
+
+                                if (IsControlJustReleased(0, 25) or IsDisabledControlJustReleased(0, 25)) then
+                                    SetNuiFocus(true, true)
+                                    SetCursorLocation(0.5, 0.5)
+                                    isMouse = true
+                                    SendNUIMessage({response = "validTarget", data = NewOptions})
+                                elseif IsControlJustReleased(0, 19) and not isMouse then
+                                    SendNUIMessage({response = "closeTarget"})
+                                    SetNuiFocus(false, false)
+                                    success = false
+                                    isMouse = false
+                                    targetActive = false
+                                end
+
+                                if GetEntityType(entity) == 0 or #(plyCoords - coords) > Models[_]["distance"] then
+                                    SendNUIMessage({response = "leftTarget"})
+                                    SetNuiFocus(false, false)
+                                    success = false
+                                    isMouse = false
+                                end
+
+                                Citizen.Wait(1)
+                            end
+                            SendNUIMessage({response = "leftTarget"})
+                            SetNuiFocus(false, false)
+                            success = false
+                            isMouse = false
                         end
                     end 
                 end
