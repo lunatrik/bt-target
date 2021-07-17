@@ -9,7 +9,7 @@ This fork is based on BerkieBb's preferences on changes for the target and some 
 - [BerkieBb](https://github.com/BerkieBb) - Contributor
 - [TheeDeer](https://github.com/TheeDeer) - Contributed Vehicle Bone Support
 - [Cmoen11](https://github.com/Cmoen11) - Contributed ultrawide support
-
+- [OfficialNoms](https://github.com/OfficialNoms) - Added Should Show function
 
 ## Dependencies
 - [Polyzone](https://github.com/mkafrin/PolyZone)
