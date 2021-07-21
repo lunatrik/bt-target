@@ -135,7 +135,9 @@ function playerTargetEnable()
                                 if option.shouldShow == nil or option.shouldShow() then
                                     for job, grade in pairs(option.job) do
                                         if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
-                                            table.insert(NewOptions, option)
+                                            option2 = ShallowCopy(option)
+                                            option2.shouldShow = nil
+                                            table.insert(NewOptions, option2)
                                         end
                                     end
                                 end
@@ -193,7 +195,9 @@ function playerTargetEnable()
                             if option.shouldShow == nil or option.shouldShow() then
                                 for job, grade in pairs(option.job) do
                                     if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
-                                        table.insert(NewOptions, option)
+                                        option2 = ShallowCopy(option)
+                                        option2.shouldShow = nil
+                                        table.insert(NewOptions, option2)
                                     end
                                 end
                             end
@@ -252,7 +256,9 @@ function playerTargetEnable()
                                 if option.shouldShow == nil or option.shouldShow() then
                                     for job, grade in pairs(option.job) do
                                         if grade == "all" or (Config.UseGrades and (job == PlayerJob.name and (Config.QBCore and grade == PlayerJob.grade.level) or (Config.ESX and grade == PlayerJob.grade))) or grade == PlayerJob.name then
-                                            table.insert(NewOptions, option)
+                                            option2 = ShallowCopy(option)
+                                            option2.shouldShow = nil
+                                            table.insert(NewOptions, option2)
                                         end
                                     end
                                 end
@@ -416,6 +422,14 @@ function GetNearestVehicle()
     local _, hit, _, _, entity = GetShapeTestResult(shapeTest)
 
     return (hit == 1 and IsEntityAVehicle(entity)) and entity or false
+end
+
+function ShallowCopy (oldTable)
+    local newTable = {}
+    for k,v in pairs(oldTable) do
+        newTable[k] = v
+    end
+    return newTable
 end
 
 --Exports
